@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mi Aplicación Web</title>
+  <script src="./components/header-component.js" defer></script>
+  <script src="./components/footer-component.js" defer></script>
+  <script src="./components/main-component.js" defer></script>
+  <script src="./components/menu-component.js" defer></script>
+  <script src="./components/social-profile.js" defer></script>
+  <script src="./components/custom-table.js" defer></script>
+  <script src="./components/gallery-component.js" defer></script>
+</head>
+<body>
+
+  <header-component></header-component>
+  <menu-component></menu-component>
+  
+  <main-component id="main-content">
+    <!-- Aquí se cargará el contenido dinámico -->
+  </main-component>
+
+  <footer-component></footer-component>
+
+  <script>
+    // Función para actualizar el contenido del main
+    function loadContent() {
+      const mainContent = document.getElementById('main-content');
+      const hash = window.location.hash;
+
+      // Limpiar el contenido actual
+      mainContent.innerHTML = '';
+
+      switch (hash) {
+        case '#profile':
+          mainContent.appendChild(document.createElement('social-profile'));
+          break;
+        case '#gallery':
+          mainContent.appendChild(document.createElement('gallery-component'));
+          break;
+        case '#table':
+          mainContent.appendChild(document.createElement('custom-table'));
+          break;
+        default:
+          // Si no hay hash, mostrar un mensaje de bienvenida o una página de inicio
+          mainContent.innerHTML = `
+            <h2>Bienvenido a Mi Aplicación Web</h2>
+            <p>Una plataforma innovadora para interactuar con perfiles sociales, galerías y tablas de datos.</p>
+
+            <section id="about">
+              <h3>Acerca de</h3>
+              <p>Esta aplicación web está diseñada para ofrecerte una experiencia interactiva con diferentes módulos como un perfil social, una galería de imágenes y una tabla con datos útiles.</p>
+            </section>
+
+            <section id="features">
+              <h3>Características Principales</h3>
+              <ul>
+                <li><strong>Perfil Social:</strong> Visualiza perfiles de usuario con información detallada.</li>
+                <li><strong>Galería de Imágenes:</strong> Navega a través de una selección de imágenes aleatorias.</li>
+                <li><strong>Tabla de Datos:</strong> Consulta datos de usuarios de una base de datos pública.</li>
+              </ul>
+            </section>
+
+            <section id="image">
+              <h3>Imagen Destacada</h3>
+              <img src="https://picsum.photos/800/400" alt="Imagen destacada" style="width: 100%; max-width: 800px; border-radius: 8px;"/>
+            </section>
+
+            <section id="navigation">
+              <h3>Empieza a explorar</h3>
+              <p>Elige una de las siguientes secciones para comenzar:</p>
+              <ul>
+                <li><a href="#profile">Ir al Perfil Social</a></li>
+                <li><a href="#gallery">Ver la Galería</a></li>
+                <li><a href="#table">Consultar la Tabla</a></li>
+              </ul>
+            </section>
+          `;
+          break;
+      }
+    }
+
+    // Evento de cambio de hash
+    window.addEventListener('hashchange', loadContent);
+
+    // Cargar contenido inicial si ya hay un hash en la URL
+    document.addEventListener('DOMContentLoaded', () => {
+      loadContent();
+    });
+  </script>
+
+</body>
+</html>
